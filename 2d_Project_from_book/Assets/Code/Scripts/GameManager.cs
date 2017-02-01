@@ -8,7 +8,12 @@ public enum GameState
 
 public class GameManager : MonoBehaviour {
 
+    //разные типы канвасов для разных состояний игры,присваиваем в Unity
+    public Canvas menuCanvas;      
+    public Canvas inGameCanvas;
+    public Canvas gameOverCanvas;
 
+    public int collectedCoints = 0; // собранные монетки
     public static GameManager instance; // use singleton for GameManager
     public GameState currentGameState = GameState.menu;
 
@@ -16,16 +21,22 @@ public class GameManager : MonoBehaviour {
     {
         instance = this;
     }
-    void Update()
+
+    private void Start()
     {
-        if (Input.GetButtonDown("s"))
-            StartGame();
+        SetGameState(GameState.menu);
+    }
+    // Метод увеличивает кол-во монеток на +1
+    public void CollectedCoin()
+    {
+        collectedCoints++;
     }
 
     // вызывается для начала игры
     public void StartGame () {
         SetGameState(GameState.inGame);
         PlayerController.instance.StartGame();
+        
 	}
 	
 	// вызывается при смерти персонажа
@@ -43,15 +54,24 @@ public class GameManager : MonoBehaviour {
     {
         if(newGameState == GameState.menu)
         {
-
+            //setup unity scene for menu state
+            menuCanvas.enabled     = true;
+            inGameCanvas.enabled   = false;
+            gameOverCanvas.enabled = false;
         }
         else if(newGameState == GameState.inGame)
         {
-
+            //setup unity scene for InGame state
+            menuCanvas.enabled     = false;
+            inGameCanvas.enabled   = true;
+            gameOverCanvas.enabled = false;
         }
         else if(newGameState == GameState.gameOver)
         {
-
+            //setup unity scene for GameOver state
+            menuCanvas.enabled     = false;
+            inGameCanvas.enabled   = false;
+            gameOverCanvas.enabled = true;
         }
 
         currentGameState = newGameState;
