@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Code\Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\Code\Scripts\ChangeSpritesOfPlant.cs" />
     <Compile Include="Assets\Code\Scripts\CollectCoins.cs" />
     <Compile Include="Assets\Code\Scripts\GameManager.cs" />
     <Compile Include="Assets\Code\Scripts\KillPlayerTrigger.cs" />
