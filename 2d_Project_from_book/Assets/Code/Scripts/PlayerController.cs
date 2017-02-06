@@ -5,8 +5,10 @@ using System;
 public class PlayerController : MonoBehaviour {
 
     public static PlayerController instance;
-
-    public float jumpForce = 6f;
+    public float timeLeftForJump;
+    public float timeLeftForSpeed;
+    public float runImpulse;
+    public float jumpForce = 25f;
     public LayerMask groundLayer;
     public Animator animator;
     public float runningSpeed = 2.5f;
@@ -34,7 +36,7 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+         
         //увелечение скорости движения игрока(усложнение игры),зависит от пройденного расстояния
         if (GetDistance() >= 25 && GetDistance() <= 50)
             runningSpeed = 2.8f;
@@ -66,7 +68,7 @@ public class PlayerController : MonoBehaviour {
         if (GameManager.instance.currentGameState == GameState.inGame)
         {
             if (rigidBody.velocity.x < runningSpeed)
-                rigidBody.velocity = new Vector2(runningSpeed, rigidBody.velocity.y);
+                rigidBody.velocity = new Vector2(runningSpeed + runImpulse, rigidBody.velocity.y);
         }
     }
 
